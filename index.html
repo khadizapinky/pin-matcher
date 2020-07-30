@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pin-generator half-width">
+                    <input class="form-control" type="text" id="generatenumber" value="">
+                    <button class="generate-btn" id="generatebtn">Generate Pin</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-section half-width">
+                    <input class="form-control" type="text" id="calcnumber" value="">
+                    <div class="numbers">
+                        <div class="calc-body calcbtn">
+                            <div class="calc-button-row">
+                              <div class="button" id="seven">7 </div>
+                              <div class="button" id="eight">8</div>
+                              <div class="button" id="nine">9 </div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" id="four">4</div>
+                              <div class="button" id="five">5</div>
+                              <div class="button" id="six">6</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" id="one">1</div>
+                              <div class="button" id="two">2</div>
+                              <div class="button" id="three">3</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div class="button" id="previous"><</div>
+                                <div class="button" id="zero">0</div>
+                                <div class="button" id="clear">C</div>
+                            </div>
+                            <div>
+                                <button type="submit" class="submit-btn" id="submit">Submit</button>
+                                <p class="action-left">3 try left</p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="notify-section">
+            <p class="notify" id="pin-not-matched">❌ Pin Didn't Match, Please try again</p>
+            <p class="notify" id="pin-matched">✅ Pin Matched... Secret door is opening for you</p>
+        </div>
+    </div>
+    <script>
+       var notifySection =  document.getElementsByClassName('notify');
+       for(var i = 0; i < notifySection.length; i++){
+           var element = notifySection[i];
+           element.style.display = 'none';
+       }
+       
+    document.getElementById('generatebtn').addEventListener('click', function(){
+        var generateInput = document.getElementById('generatenumber');
+        var generatePin = parseInt(generateInput.value);
+        var number = Math.random() * 10000;
+        var finalNumber = Math.round(number);
+        if(finalNumber < 10000 && finalNumber >= 1000){
+            var result = finalNumber;
+        }
+        document.getElementById('generatenumber').value = result;
+     });
+
+     document.getElementById('one').addEventListener('click', function(){
+        var bTN = document.getElementById('one').innerText;
+        document.getElementById('calcnumber').value += bTN;
+     })
+     document.getElementById('two').addEventListener('click', function(){
+        var bTN = document.getElementById('two').innerText;
+        document.getElementById('calcnumber').value += bTN;
+     })
+     document.getElementById('three').addEventListener('click', function(){
+        var bTN = document.getElementById('three').innerText;
+        document.getElementById('calcnumber').value += bTN;
+     })
+     document.getElementById('four').addEventListener('click', function(){
+        var bTN = document.getElementById('four').innerText;
+        document.getElementById('calcnumber').value += bTN;
+     })
+     document.getElementById('five').addEventListener('click', function(){
+        var bTN = document.getElementById('five').innerText;
+        document.getElementById('calcnumber').value += bTN;
+     })
+     document.getElementById('six').addEventListener('click', function(){
+        var bTN = document.getElementById('six').innerText;
+        document.getElementById('calcnumber').value += bTN;
+     })
+     document.getElementById('seven').addEventListener('click', function(){
+        var bTN = document.getElementById('seven').innerText;
+        document.getElementById('calcnumber').value += bTN;
+     })
+     document.getElementById('eight').addEventListener('click', function(){
+        var bTN = document.getElementById('eight').innerText;
+        document.getElementById('calcnumber').value += bTN;
+     })
+     document.getElementById('nine').addEventListener('click', function(){
+        var bTN = document.getElementById('nine').innerText;
+        document.getElementById('calcnumber').value += bTN;
+     })
+     document.getElementById('zero').addEventListener('click', function(){
+        var bTN = document.getElementById('zero').innerText;
+        document.getElementById('calcnumber').value += bTN;
+     })
+     document.getElementById('clear').addEventListener('click', function(){
+        var bTN = document.getElementById('clear').innerText;
+        document.getElementById('calcnumber').value = "";
+     })
+     document.getElementById('previous').addEventListener('click', function(){
+        // var bTN = document.getElementById('calcnumber').value;
+        // console.log(bTN);
+
+     })
+
+     document.getElementById('submit').addEventListener('click', function(){
+        var number = document.getElementById('calcnumber').value;
+       var generateNumber =  document.getElementById('generatenumber').value;
+       if(number == generateNumber){
+        var pinMatched = document.getElementById('pin-matched');
+         pinMatched.style.display = 'block';
+       }
+       else{
+        var pinNotMatched = document.getElementById('pin-not-matched');
+         pinNotMatched.style.display = 'block';
+
+       }
+    
+     })
+      
+        
+     
+     </script>
+</body>
+</html>

@@ -13,36 +13,36 @@
             <div class="col-md-6">
                 <div class="pin-generator half-width">
                     <input class="form-control" type="text" id="generate-number" value="">
-                    <button class="generate-btn" id="generatebtn">Generate Pin</button>
+                    <button class="generate-btn" id="generate-button">Generate Pin</button>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="input-section half-width">
-                    <input class="form-control" type="text" id="calc-number" value="">
+                    <input class="form-control" type="text" id="display-number" value="">
                     <div class="numbers">
                         <div class="calc-body calcbtn">
                             <div class="calc-button-row">
-                              <div class="button" onclick="numbers(this.innerText)" id="seven">7 </div>
-                              <div class="button" onclick="numbers(this.innerText)" id="eight">8</div>
-                              <div class="button" onclick="numbers(this.innerText)" id="nine">9 </div>
+                              <div class="button" onclick="calculatorNumber(this.innerText)" id="seven">7 </div>
+                              <div class="button" onclick="calculatorNumber(this.innerText)" id="eight">8</div>
+                              <div class="button" onclick="calculatorNumber(this.innerText)" id="nine">9 </div>
                             </div>
                             <div class="calc-button-row">
-                              <div class="button" onclick="numbers(this.innerText)" id="four">4</div>
-                              <div class="button" onclick="numbers(this.innerText)" id="five">5</div>
-                              <div class="button"  onclick="numbers(this.innerText)" id="six">6</div>
+                              <div class="button" onclick="calculatorNumber(this.innerText)" id="four">4</div>
+                              <div class="button" onclick="calculatorNumber(this.innerText)" id="five">5</div>
+                              <div class="button"  onclick="calculatorNumber(this.innerText)" id="six">6</div>
                             </div>
                             <div class="calc-button-row">
-                              <div class="button" onclick="numbers(this.innerText)" id="one">1</div>
-                              <div class="button" onclick="numbers(this.innerText)" id="two">2</div>
-                              <div class="button" onclick="numbers(this.innerText)" id="three">3</div>
+                              <div class="button" onclick="calculatorNumber(this.innerText)" id="one">1</div>
+                              <div class="button" onclick="calculatorNumber(this.innerText)" id="two">2</div>
+                              <div class="button" onclick="calculatorNumber(this.innerText)" id="three">3</div>
                             </div>
                             <div class="calc-button-row">
                                 <div class="button"  id="backspace"><</div>
-                                <div class="button" onclick="numbers(this.innerText)" id="zero">0</div>
+                                <div class="button" onclick="calculatorNumber(this.innerText)" id="zero">0</div>
                                 <div class="button"  id="clear">C</div>
                             </div>
                             <div>
-                                <button type="submit" class="submit-btn" id="submit">Submit</button>
+                                <button type="submit" class="submit-btn" id="submit-button">Submit</button>
                                 <p class="action-left" id="try-left">3 try left</p>
                             </div>
                     </div>
@@ -55,64 +55,69 @@
         </div>
     </div>
     <script>
+
+       //notify-section display none
        var notifySection =  document.getElementsByClassName('notify');
        for(var i = 0; i < notifySection.length; i++){
            var element = notifySection[i];
            element.style.display = 'none';
        }
+
+
        
-    document.getElementById('generatebtn').addEventListener('click', function(){
-        var number = Math.floor(Math.random() * (9999 - 1000)+1000);
-        var finalNumber = Math.round(number);
-       
+       //generate random number 
+    document.getElementById('generate-button').addEventListener('click', function(){
+        var randomNumber = Math.floor(Math.random() * (9999 - 1000)+1000);
+        var finalNumber = Math.round(randomNumber);
         document.getElementById('generate-number').value = finalNumber;
      });
 
 
-     function numbers(x){
-        var Number = document.getElementById('calc-number');
-        Number.value += x;
+      
+     //display calculator number
+     function calculatorNumber(x){
+        var displayNumber = document.getElementById('display-number');
+        displayNumber.value += x;
      }
      document.getElementById('clear').addEventListener('click', function(){
-        var bTN = document.getElementById('clear').innerText;
-        document.getElementById('calc-number').value = "";
+        document.getElementById('display-number').value = "";
      })
+
      document.getElementById('backspace').addEventListener('click', function(){
-        var bTN = document.getElementById('calc-number').value;
+        var displayNumber = document.getElementById('display-number').value;
+        var backSpace = displayNumber.slice(0,-1);
+        document.getElementById('display-number').value = backSpace;
+       })
 
-        var backSpace = bTN.slice(0,-1);
-        document.getElementById('calc-number').value = backSpace;
-        
 
-     })
 
-     document.getElementById('submit').addEventListener('click', function(){
-        
-        var number = document.getElementById('calc-number');
-        var Number = parseInt(number.value);
+     
+       //pin matched by submit button
+     document.getElementById('submit-button').addEventListener('click', function(){
+       var displayNumber = document.getElementById('display-number');
+        var finaldisplayNumber = parseInt(displayNumber.value);
         var generateNumber =  document.getElementById('generate-number');
-        var generateNumbers = parseInt(generateNumber.value);
-        if(Number == generateNumbers){
-           var pinMatched = document.getElementById('pin-matched');
-            pinMatched.style.display = 'block';
-            document.getElementById('pin-not-matched').style.display = 'none';
+        var finalgenerateNumber = parseInt(generateNumber.value);
 
+        if(finaldisplayNumber == finalgenerateNumber){
+            document.getElementById('pin-matched').style.display= 'block';
+            document.getElementById('pin-not-matched').style.display = 'none';
             // setTimeout(function(){
             //    document.getElementById('pin-matched').style.display= 'none';
-            //  },5000);
-       }
-           
+            //  },5000)
+         }
        else{
-        var pinNotMatched = document.getElementById('pin-not-matched');
-         pinNotMatched.style.display = 'block';
+         document.getElementById('pin-not-matched').style.display = 'block';
          document.getElementById('pin-matched').style.display= 'none';
-
         }
-      submits();
+      submit();
      })
 
-      var clicked = 0;
-        function submits(){
+
+
+     //try left
+     var clicked = 0;
+        function submit(){
             clicked++;
             if(clicked == 1){
                 document.getElementById('try-left').innerText = "2 try left";
@@ -120,9 +125,13 @@
             if(clicked == 2){
                 document.getElementById('try-left').innerText = "1 try left";
                }
-            if(clicked > 2){
-                document.getElementById('try-left').innerText = "No try left";
+            if(clicked == 3){
+                document.getElementById('try-left').innerText = "0 try left";
               }
+            if(clicked >3){
+               document.getElementById('submit-button').style.display = "none";
+               document.getElementById('try-left').style.display = "none";
+            }
         }
 
    

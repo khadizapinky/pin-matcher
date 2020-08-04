@@ -12,38 +12,38 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="pin-generator half-width">
-                    <input class="form-control" type="text" id="generatenumber" value="">
+                    <input class="form-control" type="text" id="generate-number" value="">
                     <button class="generate-btn" id="generatebtn">Generate Pin</button>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="input-section half-width">
-                    <input class="form-control" type="text" id="calcnumber" value="">
+                    <input class="form-control" type="text" id="calc-number" value="">
                     <div class="numbers">
                         <div class="calc-body calcbtn">
                             <div class="calc-button-row">
-                              <div class="button" id="seven">7 </div>
-                              <div class="button" id="eight">8</div>
-                              <div class="button" id="nine">9 </div>
+                              <div class="button" onclick="numbers(this.innerText)" id="seven">7 </div>
+                              <div class="button" onclick="numbers(this.innerText)" id="eight">8</div>
+                              <div class="button" onclick="numbers(this.innerText)" id="nine">9 </div>
                             </div>
                             <div class="calc-button-row">
-                              <div class="button" id="four">4</div>
-                              <div class="button" id="five">5</div>
-                              <div class="button" id="six">6</div>
+                              <div class="button" onclick="numbers(this.innerText)" id="four">4</div>
+                              <div class="button" onclick="numbers(this.innerText)" id="five">5</div>
+                              <div class="button"  onclick="numbers(this.innerText)" id="six">6</div>
                             </div>
                             <div class="calc-button-row">
-                              <div class="button" id="one">1</div>
-                              <div class="button" id="two">2</div>
-                              <div class="button" id="three">3</div>
+                              <div class="button" onclick="numbers(this.innerText)" id="one">1</div>
+                              <div class="button" onclick="numbers(this.innerText)" id="two">2</div>
+                              <div class="button" onclick="numbers(this.innerText)" id="three">3</div>
                             </div>
                             <div class="calc-button-row">
-                                <div class="button" id="previous"><</div>
-                                <div class="button" id="zero">0</div>
-                                <div class="button" id="clear">C</div>
+                                <div class="button"  id="backspace"><</div>
+                                <div class="button" onclick="numbers(this.innerText)" id="zero">0</div>
+                                <div class="button"  id="clear">C</div>
                             </div>
                             <div>
                                 <button type="submit" class="submit-btn" id="submit">Submit</button>
-                                <p class="action-left">3 try left</p>
+                                <p class="action-left" id="try-left">3 try left</p>
                             </div>
                     </div>
                 </div>
@@ -62,80 +62,70 @@
        }
        
     document.getElementById('generatebtn').addEventListener('click', function(){
-        var generateInput = document.getElementById('generatenumber');
-        var generatePin = parseInt(generateInput.value);
-        var number = Math.random() * 10000;
+        var number = Math.floor(Math.random() * (9999 - 1000)+1000);
         var finalNumber = Math.round(number);
-        if(finalNumber < 10000 && finalNumber >= 1000){
-            var result = finalNumber;
-        }
-        document.getElementById('generatenumber').value = result;
+       
+        document.getElementById('generate-number').value = finalNumber;
      });
 
-     document.getElementById('one').addEventListener('click', function(){
-        var bTN = document.getElementById('one').innerText;
-        document.getElementById('calcnumber').value += bTN;
-     })
-     document.getElementById('two').addEventListener('click', function(){
-        var bTN = document.getElementById('two').innerText;
-        document.getElementById('calcnumber').value += bTN;
-     })
-     document.getElementById('three').addEventListener('click', function(){
-        var bTN = document.getElementById('three').innerText;
-        document.getElementById('calcnumber').value += bTN;
-     })
-     document.getElementById('four').addEventListener('click', function(){
-        var bTN = document.getElementById('four').innerText;
-        document.getElementById('calcnumber').value += bTN;
-     })
-     document.getElementById('five').addEventListener('click', function(){
-        var bTN = document.getElementById('five').innerText;
-        document.getElementById('calcnumber').value += bTN;
-     })
-     document.getElementById('six').addEventListener('click', function(){
-        var bTN = document.getElementById('six').innerText;
-        document.getElementById('calcnumber').value += bTN;
-     })
-     document.getElementById('seven').addEventListener('click', function(){
-        var bTN = document.getElementById('seven').innerText;
-        document.getElementById('calcnumber').value += bTN;
-     })
-     document.getElementById('eight').addEventListener('click', function(){
-        var bTN = document.getElementById('eight').innerText;
-        document.getElementById('calcnumber').value += bTN;
-     })
-     document.getElementById('nine').addEventListener('click', function(){
-        var bTN = document.getElementById('nine').innerText;
-        document.getElementById('calcnumber').value += bTN;
-     })
-     document.getElementById('zero').addEventListener('click', function(){
-        var bTN = document.getElementById('zero').innerText;
-        document.getElementById('calcnumber').value += bTN;
-     })
+
+     function numbers(x){
+        var Number = document.getElementById('calc-number');
+        Number.value += x;
+     }
      document.getElementById('clear').addEventListener('click', function(){
         var bTN = document.getElementById('clear').innerText;
-        document.getElementById('calcnumber').value = "";
+        document.getElementById('calc-number').value = "";
      })
-     document.getElementById('previous').addEventListener('click', function(){
-        // var bTN = document.getElementById('calcnumber').value;
-        // console.log(bTN);
+     document.getElementById('backspace').addEventListener('click', function(){
+        var bTN = document.getElementById('calc-number').value;
+
+        var backSpace = bTN.slice(0,-1);
+        document.getElementById('calc-number').value = backSpace;
+        
 
      })
 
      document.getElementById('submit').addEventListener('click', function(){
-        var number = document.getElementById('calcnumber').value;
-       var generateNumber =  document.getElementById('generatenumber').value;
-       if(number == generateNumber){
-        var pinMatched = document.getElementById('pin-matched');
-         pinMatched.style.display = 'block';
+        
+        var number = document.getElementById('calc-number');
+        var Number = parseInt(number.value);
+        var generateNumber =  document.getElementById('generate-number');
+        var generateNumbers = parseInt(generateNumber.value);
+        if(Number == generateNumbers){
+           var pinMatched = document.getElementById('pin-matched');
+            pinMatched.style.display = 'block';
+            document.getElementById('pin-not-matched').style.display = 'none';
+
+            // setTimeout(function(){
+            //    document.getElementById('pin-matched').style.display= 'none';
+            //  },5000);
        }
+           
        else{
         var pinNotMatched = document.getElementById('pin-not-matched');
          pinNotMatched.style.display = 'block';
+         document.getElementById('pin-matched').style.display= 'none';
 
-       }
-    
+        }
+      submits();
      })
+
+      var clicked = 0;
+        function submits(){
+            clicked++;
+            if(clicked == 1){
+                document.getElementById('try-left').innerText = "2 try left";
+              }
+            if(clicked == 2){
+                document.getElementById('try-left').innerText = "1 try left";
+               }
+            if(clicked > 2){
+                document.getElementById('try-left').innerText = "No try left";
+              }
+        }
+
+   
       
         
      
